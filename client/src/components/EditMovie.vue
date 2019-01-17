@@ -1,6 +1,6 @@
 <template>
   <div class="posts">
-    <h1>Edit Movie</h1>
+    <h1>Edit Movie 1</h1>
       <div class="form">
         <div>
           <input type="text" name="title" placeholder="Nazwa" v-model="title">
