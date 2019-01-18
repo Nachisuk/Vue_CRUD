@@ -5,11 +5,11 @@ var MovieSchema = new Schema({
     nazwa: String,
     opis: String,
     kategoria_wiekowa: String,
-    reżyser: String,
+    reżyser: {type: Schema.Types.ObjectId, ref:'Director'},
     gatunek: String,
     nagrody: String,
     data_wydania: Date
 })
 
 var Movie = mongoose.model("Movie",MovieSchema);
-module.exports = Movie;
+module.exports = Movie; 

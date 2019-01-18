@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017');
+mongoose.connect('mongodb://localhost:27017/movies');
 
 var db = mongoose.connection;
 db.on("error",console.error.bind(console,"connection error"));
@@ -18,10 +18,11 @@ db.once("open",function(callback){
 })
 
 var Movie = require("../models/movie");
+var Director = require("../models/director");
 
 //Dostanie wszystkich filmów
 app.get('/movies', (req, res) => {
-   Movie.find({},'nazwa opis kategoria_wiekowa gatunek nagrody data_wydania',function(error,movies){
+   Movie.find({},'nazwa opis reżyser kategoria_wiekowa gatunek nagrody data_wydania',function(error,movies){
      if(error) {console.error(error);}
      res.send({
        movies: movies
@@ -29,13 +30,28 @@ app.get('/movies', (req, res) => {
    }).sort({_id:-1})
   })
 
+//Dostanie wszystkich reżyserów
+app.get('/directors',(req,res) => {
+  Director.find({},function(error,director){
+    if(error) {console.error(error);}
+    res.send({
+      director: director
+      
+    })
+  })
+})
 //Dodanie filmu
 app.post('/movies',(req,res) => {
   var db= req.db;
   var title = req.body.nazwa;
   var description = req.body.opis;
   var kategoria = req.body.kategoria_wiekowa;
-  var reżyser = req.body.reżyser;
+  var reżyser = new Director({
+    imie: "Jogn",
+ 	  nazwisko: "Ciastko",
+ 	  data_urodzenia: "2012-04-23T18:25:43.511Z"
+  });
+  reżyser.save(function(error){if(error){console.log(error)}})
   var gatunek = req.body.gatunek;
   var nagrody = req.body.nagrody;
   var data = req.body.data;
