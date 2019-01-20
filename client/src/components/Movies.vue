@@ -11,13 +11,19 @@
                     <td>Nazwa</td>
                     <td>Opis</td>
                     <td>Autor</td>
+                    <td>Gatunek</td>
+                    <td>Nagrody</td>
+                    <td>Kategoria</td>
                     <td>Akcja</td>
                 </tr>
 
                 <tr v-for="movie in movies" :key="movie.id">
                      <td>{{ movie.nazwa }}</td>
                      <td>{{ movie.opis }}</td>
-                     <td>{{movie.reżyser}}</td>
+                     <td>{{movie.reżyser.imie + " "+ movie.reżyser.nazwisko}}</td>
+                     <td v-for="genre in movie.gatunek" :key="genre.id"> {{genre.nazwa+" "}}</td>
+                     <td v-for="award in movie.nagrody" :key="award.id">{{award.nazwa+" "}}</td>
+                     <td>{{movie.kategoria_wiekowa.nazwa}}</td>
                      <td align="center">
                         <router-link v-bind:to="{ name: 'UpdateMovie', params: { id: movie._id } }">Edit</router-link> |
                         <a href="#" @click="deleteMovie(movie._id)">Delete</a>
