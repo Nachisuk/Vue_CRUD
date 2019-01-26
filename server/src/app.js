@@ -2,9 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
-require("babel-core").transform("code", {
-  plugins: ["transform-optional-chaining"]
-});
+
 
 const app = express()
 app.use(morgan('combined'))
@@ -179,6 +177,14 @@ app.get('/movie/:id', (req,res) => {
   }).populate('reżyser').populate('gatunek')
   .populate('nagrody').populate('kategoria_wiekowa')
 })
+//Dostanie pojedyńczej nagrody
+app.get('/awards/:id', (req,res) => {
+ var db = req.db;
+ Awards.findById(req.params.id, function(error,award){
+   if(error) {console.error(error);}
+   res.send(award)
+ })
+})
 
 //Update filmu
 app.put('/movies/:id', (req,res) => {
@@ -199,6 +205,23 @@ app.put('/movies/:id', (req,res) => {
       res.send({success: true})
     })
 
+  })
+})
+//Update nagrody
+app.put('/awards/:id', (req,res)=>{
+  var db=req.db;
+  Awards.findById(req.params.id,function(error,award){
+    if(error) {console.error(error);}
+
+    award.nazwa = req.body.nazwa,
+    award.opis = req.body.opis,
+    award.obrazek = req.body.obrazek,
+    award.opis_2 = req.body.opis_2
+
+    award.save(function(error){
+      if(error){console.log(error)}
+      res.send({success: true})
+    })
   })
 })
 

@@ -5,7 +5,11 @@ import NewMovie from '@/components/MoviesList/NewMovie'
 import EditMovie from '@/components/MoviesList/EditMovie'
 
 import GenreList from '@/components/TablesList/GenreList'
-import AwardsList from '@/components/TablesList/AwardsList'
+
+import AwardsList from '@/components/TablesList/AwardsComponents/AwardsList'
+import EditAward from '@/components/TablesList/AwardsComponents/EditAward'
+import NewAward from '@/components/TablesList/AwardsComponents/NewAward'
+
 import DirectorList from '@/components/TablesList/DirectorList'
 import contentRating from '@/components/TablesList/contentRating'
 
@@ -48,6 +52,16 @@ export default new Router({
       path: '/contentrating',
       name: 'ContentRating',
       component: contentRating
+    },
+    {
+      path: '/editAward',
+      name: 'EditAward',
+      component: EditAward
+    },
+    {
+      path: '/newAward',
+      name: 'NewAward',
+      component: NewAward
     },
   ]
 })

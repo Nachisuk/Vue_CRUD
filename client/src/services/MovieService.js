@@ -43,8 +43,14 @@ export default {
   getMovie(params){
     return Api().get('movie/'+params.id)
   },
+  getAward(params){
+    return Api().get('awards/'+params.id)
+  },
   updateMovie(params){
     return Api().put('movies/'+params.id,params)
+  },
+  updateAward(params){
+    return Api().put('awards/'+params.id,params)
   },
   deleteMovie(id){
     return Api().delete('movies/'+id)

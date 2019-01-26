@@ -1,6 +1,7 @@
 <template>
 <div>
   <h1>Nagrody</h1>
+      <div style="float:right"><router-link v-bind:to="{ name: 'NewAward'}"><b-button variant="primary">Dodaj nowy</b-button></router-link></div>
       <div v-if="awards.length > 0" class="table-wrap">
           <table>
                 <tr>
@@ -17,7 +18,7 @@
                      <td>{{ award.obrazek}}</td>
                      <td>{{ award.opis_2}}</td>
                      <td align="center">
-                        <a href="#">Edit</a>|
+                        <router-link v-bind:to="{ name: 'EditAward', params: { id: award._id } }">Edit</router-link>|
                         <a href="#" @click="deleteAward(award._id)">Delete</a>
                     </td>
                 </tr>
@@ -25,8 +26,9 @@
       </div>
       <div v-else>
             There are no awards.. Lets add one now <br /><br />
-        <router-link v-bind:to="{ name: 'NewMovie' }" class="add_post_link">Add Movie</router-link>
-        </div>
+        <router-link v-bind:to="{ name: 'NewAward' }" class="add_post_link">Add Movie</router-link>
+      </div>
+        
 </div>
 
 </template>
