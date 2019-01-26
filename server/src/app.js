@@ -194,6 +194,22 @@ app.get('/content/:id', (req,res) => {
   })
  })
 
+ //Dostanie reżysera
+ app.get('/directors/:id', (req,res) => {
+  var db = req.db;
+  Director.findById(req.params.id, function(error,director){
+    if(error) {console.error(error);}
+    res.send(director)
+  })
+ })
+//Dostanie gatunku
+app.get('/genres/:id', (req,res) => {
+  var db = req.db;
+  Genre.findById(req.params.id, function(error,genre){
+    if(error) {console.error(error);}
+    res.send(genre)
+  })
+ })
 //Update filmu
 app.put('/movies/:id', (req,res) => {
   var db= req.db;
@@ -247,7 +263,37 @@ app.put('/content/:id', (req,res)=>{
     })
   })
 })
+//Update reżysera
+app.put('/directors/:id', (req,res)=>{
+  var db=req.db;
+  Director.findById(req.params.id,function(error,director){
+    if(error) {console.error(error);}
 
+    director.imie = req.body.imie,
+    director.nazwisko = req.body.nazwisko,
+    director.data_urodzenia = req.body.data_urodzenia
+
+    director.save(function(error){
+      if(error){console.log(error)}
+      res.send({success: true})
+    })
+  })
+})
+//Update gatunku
+app.put('/genres/:id', (req,res)=>{
+  var db=req.db;
+  Genre.findById(req.params.id,function(error,genre){
+    if(error) {console.error(error);}
+
+     genre.imie = req.body.nazwa,
+     genre.opis = req.body.opis
+
+    genre.save(function(error){
+      if(error){console.log(error)}
+      res.send({success: true})
+    })
+  })
+})
 //Usuwanie filmu
 app.delete('/movies/:id', (req,res) => {
   var db = req.db;

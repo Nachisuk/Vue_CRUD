@@ -1,6 +1,7 @@
 <template>
 <div>
   <h1>Reżyserzy</h1>
+        <div style="float:right"><router-link v-bind:to="{ name: 'NewDirector'}"><b-button variant="primary">Dodaj nowy</b-button></router-link></div>
       <div v-if="directors.length > 0" class="table-wrap">
           <table>
                 <tr>
@@ -14,7 +15,7 @@
                      <td>{{ director.nazwisko}}</td>                  
                      <td>{{ director.data_urodzenia}}</td>
                      <td align="center">
-                        <a href="#">Edit</a>|
+                        <router-link v-bind:to="{ name: 'EditDirector', params: { id: director._id } }">Edit</router-link>|
                         <a href="#" @click="deleteDirector(director._id)">Delete</a>
                     </td>
                 </tr>
