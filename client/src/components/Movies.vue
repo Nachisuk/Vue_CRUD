@@ -10,6 +10,7 @@
                 <tr>
                     <td>Nazwa</td>
                     <td>Opis</td>
+                    <td>Data Wydania</td>
                     <td>Autor</td>
                     <td>Gatunek</td>
                     <td>Nagrody</td>
@@ -20,6 +21,7 @@
                 <tr v-for="movie in movies" :key="movie.id">
                      <td>{{ movie.nazwa }}</td>
                      <td>{{ movie.opis }}</td>
+                     <td>{{ movie.data_wydania}}</td>
                      <td>{{movie.reżyser.imie + " "+ movie.reżyser.nazwisko}}</td>
                      <td><span v-for="genre in movie.gatunek" :key="genre.id">{{genre.nazwa+", "}} </span></td>
                      <td> <span v-for="award in movie.nagrody" :key="award.id">{{award.nazwa+", "}}</span></td>

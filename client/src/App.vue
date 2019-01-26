@@ -1,12 +1,20 @@
 <template>
-  <div id="app">
-    <router-view/>
+  
+  <div>
+    <NavBar></NavBar>
+    <div id="app">
+      <router-view/>
+    </div>
   </div>
 </template>
 
 <script>
+import Navbar from './components/NavBar'
 export default {
-  name: 'App'
+  name: 'App',
+  components:{
+    'NavBar': Navbar
+  }
 }
 </script>
 
@@ -17,6 +25,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 30px;
 }
 </style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style src="bootstrap/dist/css/bootstrap.css"></style>
+<style src="bootstrap-vue/dist/bootstrap-vue.css"></style>

@@ -83,7 +83,7 @@ app.post('/movies',(req,res) => {
   var reżyser = req.body.rezyser;
   var gatunekArray = req.body.gatunek;
   var nagrodyArray = req.body.nagrody;
-  var data = req.body.data;
+  var data = req.body.data_wydania;
 
   var new_movie = new Movie({
     nazwa: title,
@@ -170,10 +170,11 @@ app.post('/awards',(req,res) => {
 //Dostanie pojedyńczego filmu
 app.get('/movie/:id', (req,res) => {
   var db = req.db;
-  Movie.findById(req.params.id, 'nazwa opis', function (error, movie) {
+  Movie.findById(req.params.id, function (error, movie) {
     if (error) { console.error(error); }
     res.send(movie)
-  })
+  }).populate('reżyser').populate('gatunek')
+  .populate('nagrody').populate('kategoria_wiekowa')
 })
 
 //Update filmu
@@ -184,6 +185,11 @@ app.put('/movies/:id', (req,res) => {
 
     movie.nazwa = req.body.nazwa
     movie.opis = req.body.opis
+    movie.data_wydania = req.body.data_wydania
+    movie.kategoria_wiekowa = req.body.kategoria_wiekowa
+    movie.reżyser = req.body.reżyser
+    movie.gatunek = req.body.gatunek
+    movie.nagrody = req.body.nagrody
 
     movie.save(function(error){
       if(error){console.log(error)}
