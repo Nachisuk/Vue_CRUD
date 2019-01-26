@@ -1,6 +1,7 @@
 <template>
 <div>
   <h1>Gatunki</h1>
+      <div style="float:right"><router-link v-bind:to="{ name: 'NewGenre'}"><b-button variant="primary">Dodaj nowy</b-button></router-link></div>
       <div v-if="genres.length > 0" class="table-wrap">
           <table>
                 <tr>
@@ -15,7 +16,7 @@
                      <td>{{ genre.opis}}</td>                  
                      <td><span v-for="movie in genre.filmy" :key="movie._id">{{movie._id+", "}} </span></td>
                      <td align="center">
-                        <a href="#">Edit</a>|
+                        <router-link v-bind:to="{ name: 'EditGenre', params: { id: genre._id } }">Edit</router-link>|
                         <a href="#" @click="deleteGenre(genre._id)">Delete</a>
                     </td>
                 </tr>

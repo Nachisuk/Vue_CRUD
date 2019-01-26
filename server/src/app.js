@@ -285,7 +285,7 @@ app.put('/genres/:id', (req,res)=>{
   Genre.findById(req.params.id,function(error,genre){
     if(error) {console.error(error);}
 
-     genre.imie = req.body.nazwa,
+     genre.nazwa = req.body.nazwa,
      genre.opis = req.body.opis
 
     genre.save(function(error){
