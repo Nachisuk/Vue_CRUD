@@ -1,6 +1,7 @@
 <template>
 <div>
   <h1>Kategorie wiekowe</h1>
+        <div style="float:right"><router-link v-bind:to="{ name: 'NewContent'}"><b-button variant="primary">Dodaj nowy</b-button></router-link></div>
       <div v-if="contents.length > 0" class="table-wrap">
           <table>
                 <tr>
@@ -12,7 +13,7 @@
                      <td>{{content.nazwa }}</td>
                      <td>{{content.opis}}</td>                  
                      <td align="center">
-                        <a href="#">Edit</a>|
+                        <router-link v-bind:to="{ name: 'EditContent', params: { id: content._id } }">Edit</router-link>|
                         <a href="#" @click="deleteContent(content._id)">Delete</a>
                     </td>
                 </tr>

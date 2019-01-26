@@ -46,11 +46,29 @@ export default {
   getAward(params){
     return Api().get('awards/'+params.id)
   },
+  getGenre(params){
+    return Api().get('genres/'+params.id)
+  },
+  getDirector(params){
+    return Api().get('directors/'+params.id)
+  },
+  getContent(params){
+    return Api().get('content/'+params.id)
+  },
   updateMovie(params){
     return Api().put('movies/'+params.id,params)
   },
   updateAward(params){
     return Api().put('awards/'+params.id,params)
+  },
+  updateGenre(params){
+    return Api().put('genres/'+params.id,params)
+  },
+  updateDirector(params){
+    return Api().put('directors/'+params.id,params)
+  },
+  updateContent(params){
+    return Api().put('content/'+params.id,params)
   },
   deleteMovie(id){
     return Api().delete('movies/'+id)

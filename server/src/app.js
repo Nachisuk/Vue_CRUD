@@ -185,6 +185,14 @@ app.get('/awards/:id', (req,res) => {
    res.send(award)
  })
 })
+//Dostanie pojedyńczej kategorii
+app.get('/content/:id', (req,res) => {
+  var db = req.db;
+  ContentRating.findById(req.params.id, function(error,content){
+    if(error) {console.error(error);}
+    res.send(content)
+  })
+ })
 
 //Update filmu
 app.put('/movies/:id', (req,res) => {
@@ -224,9 +232,23 @@ app.put('/awards/:id', (req,res)=>{
     })
   })
 })
+//Update kategorii
+app.put('/content/:id', (req,res)=>{
+  var db=req.db;
+  ContentRating.findById(req.params.id,function(error,content){
+    if(error) {console.error(error);}
+
+    content.nazwa = req.body.nazwa,
+    content.opis = req.body.opis,
+
+    content.save(function(error){
+      if(error){console.log(error)}
+      res.send({success: true})
+    })
+  })
+})
 
 //Usuwanie filmu
-
 app.delete('/movies/:id', (req,res) => {
   var db = req.db;
 
@@ -237,6 +259,8 @@ app.delete('/movies/:id', (req,res) => {
     res.send({success:true})
   })
 })
+
+
 
 //Usuwanie Reżysera
 app.delete('/directors/:id',(req,res) =>{
