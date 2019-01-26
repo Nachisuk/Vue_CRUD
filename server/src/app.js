@@ -79,32 +79,10 @@ app.post('/movies',(req,res) => {
   var db= req.db;
   var title = req.body.nazwa;
   var description = req.body.opis;
-  var kategoria = new ContentRating({
-    nazwa:"Przyrodniczy",
-    opis:"O zwierzętach"
-  });
-  kategoria.save(function(error){if(error){console.log(error)}})
-  
+  var kategoria = req.body.kategoria_wiekowa;
   var reżyser = req.body.rezyser;
   var gatunekArray = req.body.gatunek;
-
-
- 
-
   var nagrodyArray = req.body.nagrody;
-  var pomArray2 = [];
-  nagrodyArray.forEach(function(item){
-    var award = new Awards({
-      nazwa: "Janusz",
-      opis: "o Januszach",
-      obrazek: "elo",
-      opis_2: ""
-    })
-    pomArray2.push(award);
-    award.save(function(error){if(error){console.log(error)}})
-  })
-  var nagrody = pomArray2;
-
   var data = req.body.data;
 
   var new_movie = new Movie({
@@ -113,7 +91,7 @@ app.post('/movies',(req,res) => {
     kategoria_wiekowa: kategoria,
     reżyser: reżyser,
     gatunek: gatunekArray,
-    nagrody: nagrody,
+    nagrody: nagrodyArray,
     data_wydania: data
   })
 

@@ -21,8 +21,8 @@
                      <td>{{ movie.nazwa }}</td>
                      <td>{{ movie.opis }}</td>
                      <td>{{movie.reżyser.imie + " "+ movie.reżyser.nazwisko}}</td>
-                     <td v-for="genre in movie.gatunek" :key="genre.id"> {{genre.nazwa+" "}}</td>
-                     <td v-for="award in movie.nagrody" :key="award.id">{{award.nazwa+" "}}</td>
+                     <td><span v-for="genre in movie.gatunek" :key="genre.id">{{genre.nazwa+", "}} </span></td>
+                     <td> <span v-for="award in movie.nagrody" :key="award.id">{{award.nazwa+", "}}</span></td>
                      <td>{{movie.kategoria_wiekowa.nazwa}}</td>
                      <td align="center">
                         <router-link v-bind:to="{ name: 'UpdateMovie', params: { id: movie._id } }">Edit</router-link> |
@@ -68,6 +68,7 @@ export default{
 </script>
 
 <style type="text/css">
+
 .table-wrap {
   width: 60%;
   margin: 0 auto;

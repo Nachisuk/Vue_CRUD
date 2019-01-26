@@ -2,11 +2,7 @@
   <div class="posts">
     <h1>Add Movie</h1>
       <div class="form">
-        
-        
-        
-        
-        
+
         <div class="border">
             <div>
               <input type="text" name="title" placeholder="Tytuł filmu" v-model="title">
