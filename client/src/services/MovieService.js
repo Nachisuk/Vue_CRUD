@@ -48,6 +48,19 @@ export default {
   },
   deleteMovie(id){
     return Api().delete('movies/'+id)
+  },
+  deleteDirector(id){
+    return Api().delete('directors/'+id)
+  },
+  deleteGenre(id){
+    return Api().delete('genres/'+id)
+  },
+  deleteAwards(id){
+    return Api().delete('awards/'+id)
+  },
+  deleteContent(id){
+    return Api().delete('content/'+id)
   }
+
 
 }

@@ -18,7 +18,7 @@
                      <td>{{ award.opis_2}}</td>
                      <td align="center">
                         <a href="#">Edit</a>|
-                        <a href="#">Delete</a>
+                        <a href="#" @click="deleteAward(award._id)">Delete</a>
                     </td>
                 </tr>
             </table>
@@ -50,6 +50,11 @@ export default {
     async getAwards(){
       const response = await MovieService.fetchAwards()
       this.awards = response.data.awards
+    },
+    async deleteAward(id){
+      await MovieService.deleteAwards(id)
+      this.getAwards()
+      this.$router.push({name: 'AwardsList'})
     }
   }
 

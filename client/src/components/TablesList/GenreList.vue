@@ -16,7 +16,7 @@
                      <td><span v-for="movie in genre.filmy" :key="movie._id">{{movie._id+", "}} </span></td>
                      <td align="center">
                         <a href="#">Edit</a>|
-                        <a href="#">Delete</a>
+                        <a href="#" @click="deleteGenre(genre._id)">Delete</a>
                     </td>
                 </tr>
             </table>
@@ -48,7 +48,11 @@ export default {
     async getGenres(){
       const response = await MovieService.fetchGenres()
       this.genres = response.data.genre
-      console.log(this.genres)
+    },
+     async deleteGenre(id){
+      await MovieService.deleteGenre(id)
+      this.getGenres()
+      this.$router.push({name: 'GenresList'})
     }
   }
 

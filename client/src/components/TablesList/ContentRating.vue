@@ -13,7 +13,7 @@
                      <td>{{content.opis}}</td>                  
                      <td align="center">
                         <a href="#">Edit</a>|
-                        <a href="#">Delete</a>
+                        <a href="#" @click="deleteContent(content._id)">Delete</a>
                     </td>
                 </tr>
             </table>
@@ -45,6 +45,11 @@ export default {
     async getContent(){
       const response = await MovieService.fetchContent()
       this.contents = response.data.content
+    },
+     async deleteContent(id){
+      await MovieService.deleteContent(id)
+      this.getContent()
+      this.$router.push({name: 'ContentRating'})
     }
   }
 

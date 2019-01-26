@@ -15,7 +15,7 @@
                      <td>{{ director.data_urodzenia}}</td>
                      <td align="center">
                         <a href="#">Edit</a>|
-                        <a href="#">Delete</a>
+                        <a href="#" @click="deleteDirector(director._id)">Delete</a>
                     </td>
                 </tr>
             </table>
@@ -47,6 +47,11 @@ export default {
     async getDirectors(){
       const response = await MovieService.fetchDirectors()
       this.directors = response.data.director
+    },
+    async deleteDirector(id){
+      await MovieService.deleteDirector(id)
+      this.getDirectors()
+      this.$router.push({name: 'DirectorsList'})
     }
   }
 

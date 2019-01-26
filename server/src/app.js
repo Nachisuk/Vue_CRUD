@@ -2,6 +2,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
+require("babel-core").transform("code", {
+  plugins: ["transform-optional-chaining"]
+});
 
 const app = express()
 app.use(morgan('combined'))
@@ -209,6 +212,43 @@ app.delete('/movies/:id', (req,res) => {
   },function(err,movie){
     if(err) res.send(err)
     res.send({success:true})
+  })
+})
+
+//Usuwanie Reżysera
+app.delete('/directors/:id',(req,res) =>{
+  var db = req.db
+  Director.remove({
+    _id: req.params.id},function(err,director){
+      if(err) res.send(err)
+      res.send({succes:true})
+  })
+})
+//Usuwanie Gatunku
+app.delete('/genres/:id',(req,res) =>{
+  var db = req.db
+  Genre.remove({
+    _id: req.params.id},function(err,genre){
+      if(err) res.send(err)
+      res.send({succes:true})
+  })
+})
+//Usuwanie Nagrody
+app.delete('/awards/:id',(req,res) =>{
+  var db = req.db
+  Awards.remove({
+    _id: req.params.id},function(err,award){
+      if(err) res.send(err)
+      res.send({succes:true})
+  })
+})
+//Usuwanie Conentu
+app.delete('/content/:id',(req,res) =>{
+  var db = req.db
+  ContentRating.remove({
+    _id: req.params.id},function(err,content){
+      if(err) res.send(err)
+      res.send({succes:true})
   })
 })
 app.listen(process.env.PORT || 8081)
