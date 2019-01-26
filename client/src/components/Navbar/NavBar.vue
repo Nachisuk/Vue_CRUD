@@ -9,10 +9,14 @@
 
     <b-navbar-nav>
     <router-link  v-bind:to="{name: 'Movies'}"><b-nav-text>Filmy</b-nav-text></router-link>
-      <b-nav-item href="#">Reżyserzy</b-nav-item>
-      <b-nav-item href="#">Gatunki</b-nav-item>
-      <b-nav-item href="#">Nagrody</b-nav-item>
-      <b-nav-item href="#">Kategorie wiekowe</b-nav-item>
+    <b-nav-item href="#" disabled> </b-nav-item>
+    <router-link  v-bind:to="{name: 'GenresList'}"><b-nav-text>Gatunki</b-nav-text></router-link>
+    <b-nav-item href="#" disabled> </b-nav-item>
+    <router-link  v-bind:to="{name: 'DirectorsList'}"><b-nav-text>Reżyserzy</b-nav-text></router-link>
+    <b-nav-item href="#" disabled> </b-nav-item>
+    <router-link  v-bind:to="{name: 'AwardsList'}"><b-nav-text>Nagrody</b-nav-text></router-link>
+    <b-nav-item href="#" disabled> </b-nav-item>
+    <router-link  v-bind:to="{name: 'ContentRating'}"><b-nav-text>Kategorie wiekowe</b-nav-text></router-link>
     </b-navbar-nav>
 
   </b-collapse>

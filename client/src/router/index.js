@@ -4,6 +4,11 @@ import Movies from '@/components/MoviesList/Movies'
 import NewMovie from '@/components/MoviesList/NewMovie'
 import EditMovie from '@/components/MoviesList/EditMovie'
 
+import GenreList from '@/components/TablesList/GenreList'
+import AwardsList from '@/components/TablesList/AwardsList'
+import DirectorList from '@/components/TablesList/DirectorList'
+import contentRating from '@/components/TablesList/contentRating'
+
 Vue.use(Router)
 
 export default new Router({
@@ -23,6 +28,26 @@ export default new Router({
       path: '/movies/:id',
       name: 'UpdateMovie',
       component: EditMovie
-    }
+    },
+    {
+      path: '/genres',
+      name: 'GenresList',
+      component: GenreList
+    },
+    {
+      path: '/awards',
+      name: 'AwardsList',
+      component: AwardsList
+    },
+    {
+      path: '/directors',
+      name: 'DirectorsList',
+      component: DirectorList
+    },
+    {
+      path: '/contentrating',
+      name: 'ContentRating',
+      component: contentRating
+    },
   ]
 })
