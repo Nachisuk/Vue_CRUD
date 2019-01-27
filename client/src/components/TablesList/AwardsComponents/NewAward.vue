@@ -18,10 +18,6 @@
                 <b-form-input id="titleinput" :rows="3" v-model="obrazek" type="text" placeholder="Link obrazku"></b-form-input>
                </b-form-group> 
 
-               <b-form-group style="text-align:left" label="Opis 2" label-for="titleinput" description="">
-                <b-form-textarea id="titleinput" :rows="3" v-model="opis_2" type="text" placeholder="Opis 2 nagrody"></b-form-textarea>
-               </b-form-group> 
-
 
           </b-form>
             <div>
@@ -45,7 +41,6 @@ export default {
         nazwa: '',
         opis: '',
         obrazek: '',
-        opis_2: '',
     }
   },
   mounted () {
@@ -57,7 +52,6 @@ export default {
           nazwa: this.nazwa,
           opis: this.opis,
           obrazek: this.obrazek,
-          opis_2: this.opis_2
       })
     this.$router.push({ name: 'AwardsList' });
     }

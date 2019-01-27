@@ -29,7 +29,7 @@ var Awards = require("../models/nagrody");
 
 //Dostanie wszystkich filmów
 app.get('/movies', (req, res) => {
-   Movie.find({},'nazwa opis reżyser kategoria_wiekowa gatunek nagrody data_wydania',function(error,movies){
+   Movie.find({},'nazwa opis plakat reżyser kategoria_wiekowa gatunek nagrody data_wydania',function(error,movies){
      if(error) {console.error(error);}
      res.send({
        movies: movies
@@ -80,6 +80,7 @@ app.post('/movies',(req,res) => {
   var db= req.db;
   var title = req.body.nazwa;
   var description = req.body.opis;
+  var poster = req.body.plakat;
   var kategoria = req.body.kategoria_wiekowa;
   var reżyser = req.body.rezyser;
   var gatunekArray = req.body.gatunek;
@@ -89,6 +90,7 @@ app.post('/movies',(req,res) => {
   var new_movie = new Movie({
     nazwa: title,
     opis: description,
+    plakat: poster,
     kategoria_wiekowa: kategoria,
     reżyser: reżyser,
     gatunek: gatunekArray,
@@ -218,6 +220,7 @@ app.put('/movies/:id', (req,res) => {
 
     movie.nazwa = req.body.nazwa
     movie.opis = req.body.opis
+    movie.plakat = req.body.plakat
     movie.data_wydania = req.body.data_wydania
     movie.kategoria_wiekowa = req.body.kategoria_wiekowa
     movie.reżyser = req.body.reżyser

@@ -1,28 +1,41 @@
 <template>
-<div>
-  <h1>Kategorie wiekowe</h1>
-        <div style="float:right"><router-link v-bind:to="{ name: 'NewContent'}"><b-button variant="primary">Dodaj nowy</b-button></router-link></div>
-      <div v-if="contents.length > 0" class="table-wrap">
-          <table>
-                <tr>
-                    <td>Nazwa</td>
-                    <td>Opis</td>
-                </tr>
 
-                <tr v-for="content in contents" :key="content._id">
-                     <td>{{content.nazwa }}</td>
-                     <td>{{content.opis}}</td>                  
-                     <td align="center">
-                        <router-link v-bind:to="{ name: 'EditContent', params: { id: content._id } }">Edit</router-link>|
-                        <a href="#" @click="deleteContent(content._id)">Delete</a>
-                    </td>
-                </tr>
-            </table>
-      </div>
-      <div v-else>
-            There are no content ratings.. Lets add one now <br /><br />
-        <router-link v-bind:to="{ name: 'NewMovie' }" class="add_post_link">Add Movie</router-link>
-        </div>
+<div class="container">
+  <div class="row">
+    <div class="col-6" align="left">
+      <h1>Kategorie wiekowe</h1>
+    </div>
+    <div class="col-6" align="right">
+      <router-link v-bind:to="{ name: 'NewContent'}">
+        <b-button variant="primary">
+          Dodaj nową
+        </b-button>
+      </router-link>
+    </div>
+  </div>
+
+  <div v-if="contents.length > 0" class="row">
+    <div v-for="content in contents" :key="content._id" class="col-md-6 col-lg-4" style="margin-bottom: 20px; margin-top: 20px;">
+      <b-card >
+          <h4 slot="header">{{content.nazwa }}</h4>
+          <b-card-body>
+            <p class="card-text">
+                {{content.opis}}
+            </p>
+          </b-card-body>
+          <div slot="footer"> 
+            <router-link v-bind:to="{ name: 'EditContent', params: { id: content._id } }">Edytuj</router-link> | <a href="#" @click="deleteContent(content._id)">Usuń</a>
+          </div>
+        </b-card>
+        
+    </div>
+  </div> 
+  
+  <div v-else class="row">
+    <div style="margin-bottom: 20px; margin-top: 20px;">
+        Brak tu żadnych kategorii wiekowych... dodajmy jakieś!
+    </div>
+  </div>
 </div>
 
 </template>

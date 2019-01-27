@@ -11,6 +11,10 @@
               <b-form-group style="text-align:left" label="Opis filmu" label-for="descinput" description="Napisz krótki/długi opis filmu">
                 <b-form-textarea id="descinput" :rows="3" v-model="description" placeholder="Opis filmu"></b-form-textarea>
               </b-form-group>  
+
+              <b-form-group style="text-align:left" label="Plakat filmu" label-for="posterinput" description="">
+                <b-form-input id="posterinput" :rows="3" v-model="poster" type="text" placeholder="Link obrazku"></b-form-input>
+               </b-form-group>
               
                <b-form-group style="text-align:left" label="Data produkcji filmu" label-for="datainput" description="Wybierz date">
                   <datepicker v-model="movieDate"  name="uniquenam1e" :bootstrap-styling=true></datepicker>
@@ -124,12 +128,6 @@
                           </b-form-group>
                         </div>
 
-                         <div>
-                          <b-form-group style="text-align:left">
-                            <b-form-input id="titleinput" v-model="awardDesc2" type="text" placeholder="Opis 2 nagrody"></b-form-input>
-                          </b-form-group>
-                        </div>
-
                         <div>
                           <b-button variant="primary" @click="addAward">Dodaj</b-button>
                           <b-button variant="danger" @click='toggleAwards = !toggleAwards'>Wróć</b-button>
@@ -216,12 +214,13 @@ export default {
       awardName: '',
       awardDesc: '',
       awardPic: '',
-      awardDesc2: '',
+      
 
       genreName: '',
       genreDesc: '',
       title: '',
       description: '',
+      poster: '',
 
       genres: [],
       directors: [],
@@ -254,6 +253,7 @@ export default {
       await MovieService.addMovie({
         nazwa: this.title,
         opis: this.description,
+        plakat: this.poster,
         nagrody: ['1','2'],
         gatunek: genresIdArray,
         rezyser: directorID,
@@ -321,7 +321,6 @@ export default {
         nazwa: this.awardName,
         opis: this.awardDesc,
         obrazek: this.awardPic,
-        opis_2: this.awardDesc2
       })
       this.toggleAwards = false;
       this.getAwards()
