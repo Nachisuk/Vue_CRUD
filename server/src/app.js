@@ -358,7 +358,8 @@ app.post('/searchMovie',(req,res) =>{
         res.send({
           movies: movies
         })
-      })
+      }).populate('reżyser').populate('gatunek')
+      .populate('nagrody').populate('kategoria_wiekowa')
     break;
     case "Opis":
       Movie.find({"opis":regex},function(error,movies){
@@ -366,7 +367,8 @@ app.post('/searchMovie',(req,res) =>{
         res.send({
           movies: movies
         })
-      })
+      }).populate('reżyser').populate('gatunek')
+      .populate('nagrody').populate('kategoria_wiekowa')
     break;
     case "Reżyser":
     searchTable = "reżyser"
@@ -377,7 +379,8 @@ app.post('/searchMovie',(req,res) =>{
         res.send({
           movies: movies
         })
-      })
+      }).populate('reżyser').populate('gatunek')
+      .populate('nagrody').populate('kategoria_wiekowa')
     })
     break;
     case "Gatunek":
@@ -389,7 +392,8 @@ app.post('/searchMovie',(req,res) =>{
         res.send({
           movies: movies
         })
-      })
+      }).populate('reżyser').populate('gatunek')
+      .populate('nagrody').populate('kategoria_wiekowa')
     })
 
     break;
@@ -401,7 +405,8 @@ app.post('/searchMovie',(req,res) =>{
         res.send({
           movies: movies
         })
-      })
+      }).populate('reżyser').populate('gatunek')
+      .populate('nagrody').populate('kategoria_wiekowa')
     })
     break;
     case "Kategoria wiekowa":
@@ -412,7 +417,8 @@ app.post('/searchMovie',(req,res) =>{
         res.send({
           movies: movies
         })
-      })
+      }).populate('reżyser').populate('gatunek')
+      .populate('nagrody').populate('kategoria_wiekowa')
     })
     break;
     case "Data wydania":
