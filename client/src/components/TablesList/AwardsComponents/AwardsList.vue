@@ -1,34 +1,44 @@
 <template>
-<div>
-  <h1>Nagrody</h1>
-      <div style="float:right"><router-link v-bind:to="{ name: 'NewAward'}"><b-button variant="primary">Dodaj nowy</b-button></router-link></div>
-      <div v-if="awards.length > 0" class="table-wrap">
-          <table>
-                <tr>
-                    <td>Nazwa</td>
-                    <td>Opis</td>
-                    <td>Obrazek</td>
-                    <td>Opis 2</td>
-                    <td>Akcja</td>
-                </tr>
 
-                <tr v-for="award in awards" :key="award._id">
-                     <td>{{ award.nazwa }}</td>
-                     <td>{{ award.opis}}</td>                  
-                     <td>{{ award.obrazek}}</td>
-                     <td>{{ award.opis_2}}</td>
-                     <td align="center">
-                        <router-link v-bind:to="{ name: 'EditAward', params: { id: award._id } }">Edit</router-link>|
-                        <a href="#" @click="deleteAward(award._id)">Delete</a>
-                    </td>
-                </tr>
-            </table>
-      </div>
-      <div v-else>
-            There are no awards.. Lets add one now <br /><br />
-        <router-link v-bind:to="{ name: 'NewAward' }" class="add_post_link">Add Movie</router-link>
-      </div>
-        
+<div class="container">
+  <div class="row">
+    <div class="col-6" align="left">
+      <h1>Nagrody</h1>
+    </div>
+    <div class="col-6" align="right">
+      <router-link v-bind:to="{ name: 'NewAward'}">
+        <b-button variant="primary">
+          Dodaj nową
+        </b-button>
+      </router-link>
+    </div>
+  </div>
+
+  <div v-if="awards.length > 0" class="row">
+    <div  v-for="award in awards" :key="award._id" class="col-md-6 col-lg-4" style="margin-bottom: 20px; margin-top: 20px;">
+      <b-card >
+          <h4 slot="header">{{ award.nazwa }}</h4>
+          <b-card-body>
+            <p class="card-text">
+              <b-img v-if="award.obrazek==null" thumbnail fluid-grow src="https://www.tatahousing.in/images/award-placeholder.png" alt="Thumbnail" style="max-width: 270px;" />
+              <b-img v-else-if="award.obrazek===''" thumbnail fluid-grow src="https://www.tatahousing.in/images/award-placeholder.png" alt="Thumbnail" style="max-width: 270px; background-color:#E8E8E8;" />
+              <b-img v-else thumbnail fluid-grow :src="award.obrazek" alt="Thumbnail" style="max-width: 270px;" />
+              <br><br>
+              {{ award.opis}}
+            </p>
+          </b-card-body>
+          <div slot="footer"> 
+            <router-link v-bind:to="{ name: 'EditAward', params: { id: award._id } }">Edytuj</router-link> | <a href="#" @click="deleteAward(award._id)">Usuń</a>
+          </div>
+        </b-card>  
+    </div>
+  </div> 
+  
+  <div v-else class="row">
+    <div style="margin-bottom: 20px; margin-top: 20px;">
+        Brak tu żadnych nagród... dodajmy jakieś!
+    </div>
+  </div>
 </div>
 
 </template>

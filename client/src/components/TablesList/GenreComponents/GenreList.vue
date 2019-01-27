@@ -1,31 +1,40 @@
 <template>
-<div>
-  <h1>Gatunki</h1>
-      <div style="float:right"><router-link v-bind:to="{ name: 'NewGenre'}"><b-button variant="primary">Dodaj nowy</b-button></router-link></div>
-      <div v-if="genres.length > 0" class="table-wrap">
-          <table>
-                <tr>
-                    <td>Nazwa</td>
-                    <td>Opis</td>
-                    <td>Filmy</td>
-                    <td>Akcja</td>
-                </tr>
+<div class="container">
+  <div class="row">
+    <div class="col-6" align="left">
+      <h1>Gatunki</h1>
+    </div>
+    <div class="col-6" align="right">
+      <router-link v-bind:to="{ name: 'NewGenre'}">
+        <b-button variant="primary">
+          Dodaj nowy
+        </b-button>
+      </router-link>
+    </div>
+  </div>
 
-                <tr v-for="genre in genres" :key="genre._id">
-                     <td>{{ genre.nazwa }}</td>
-                     <td>{{ genre.opis}}</td>                  
-                     <td><span v-for="movie in genre.filmy" :key="movie._id">{{movie._id+", "}} </span></td>
-                     <td align="center">
-                        <router-link v-bind:to="{ name: 'EditGenre', params: { id: genre._id } }">Edit</router-link>|
-                        <a href="#" @click="deleteGenre(genre._id)">Delete</a>
-                    </td>
-                </tr>
-            </table>
-      </div>
-      <div v-else>
-            There are no genres.. Lets add one now <br /><br />
-        <router-link v-bind:to="{ name: 'NewMovie' }" class="add_post_link">Add Movie</router-link>
-        </div>
+  <div v-if="genres.length >0" class="row">
+    <div v-for="genre in genres" :key="genre._id" class="col-md-6 col-lg-4" style="margin-bottom: 20px; margin-top: 20px;">
+      <b-card >
+          <h4 slot="header">{{ genre.nazwa }}</h4>
+          <b-card-body>
+            <p class="card-text">
+                {{ genre.opis}}
+            </p>
+          </b-card-body>
+          <div slot="footer"> 
+            <router-link v-bind:to="{ name: 'EditGenre', params: { id: genre._id } }">Edytuj</router-link> | <a href="#" @click="deleteGenre(genre._id)">Usuń</a>
+          </div>
+        </b-card>
+        
+    </div>
+  </div> 
+  
+  <div v-else class="row">
+    <div style="margin-bottom: 20px; margin-top: 20px;">
+        Brak tu żadnych gatunków... dodajmy jakiś!
+    </div>
+  </div>
 </div>
 
 </template>
