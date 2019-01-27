@@ -29,6 +29,8 @@
  
 <div v-show='searchMovie'>
 <div v-if="movies.length > 0" class="row ">
+
+            
             <div v-for="movie in movies" :key="movie.id" class="col-md-6 col-lg-4">
                 <transition name="fade">
                     <div class = "moviecard">
@@ -46,9 +48,9 @@
                                 </a>
                             </span>
                             <br><br>
-                            <b-img v-if="movie.poster==null" thumbnail fluid-grow src="https://www.flixdetective.com/web/images/poster-placeholder.png" alt="Thumbnail" style="max-width: 270px;" />
-                            <b-img v-else-if="movie.poster===''" thumbnail fluid-grow src="https://www.flixdetective.com/web/images/poster-placeholder.png" alt="Thumbnail" style="max-width: 270px;" />
-                            <b-img v-else thumbnail fluid-grow :src="movie.poster" alt="Thumbnail" style="max-width: 270px;" />
+                            <b-img v-if="movie.plakat==null" thumbnail fluid-grow src="https://www.flixdetective.com/web/images/poster-placeholder.png" alt="Thumbnail" style="max-width: 270px;" />
+                            <b-img v-else-if="movie.plakat===''" thumbnail fluid-grow src="https://www.flixdetective.com/web/images/poster-placeholder.png" alt="Thumbnail" style="max-width: 270px;" />
+                            <b-img v-else thumbnail fluid-grow :src="movie.plakat" alt="Thumbnail" style="max-width: 270px;" />
                         </div>
 
                         
@@ -82,7 +84,7 @@
 
         <div v-else class="row">
             <div style="margin-bottom: 20px; margin-top: 20px;">
-                 Brak wyników wyszukiwania filmów
+                Brak tu żadnych filmów... dodajmy jakiś!
             </div>
         </div>
   </div>
