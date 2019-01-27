@@ -25,7 +25,7 @@
                      <td><span v-if="movie.reżyser">{{movie.reżyser.imie}} </span></td>
                      <td><span v-for="genre in movie.gatunek" :key="genre.id">{{genre.nazwa+", "}} </span></td>
                      <td> <span v-for="award in movie.nagrody" :key="award.id">{{award.nazwa+", "}}</span></td>
-                     <td><span v-if="movie.kategoria_wiekowa !== null">{{movie.kategoria_wiekowa.nazwa}}</span></td>
+                     <td><span v-if="movie.kategoria_wiekowa">{{movie.kategoria_wiekowa.nazwa}}</span></td>
                      <td align="center">
                         <router-link v-bind:to="{ name: 'UpdateMovie', params: { id: movie._id } }">Edit</router-link> |
                         <a href="#" @click="deleteMovie(movie._id)">Delete</a>

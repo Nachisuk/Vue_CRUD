@@ -1,131 +1,185 @@
 <template>
   <div class="posts">
-    <h1>Add Movie</h1>
-      <div class="form">
+     <b-container class="">
+    <b-row>
+        <b-col></b-col>
+        <b-col cols="6">
+              <b-form-group style="text-align:left" label="Nazwa filmu" label-for="titleinput" description="">
+                <b-form-input id="titleinput" v-model="title" type="text" placeholder="Nazwa filmu"></b-form-input>
+              </b-form-group>       
 
-        <div class="border">
-            <div>
-              <input type="text" name="title" placeholder="Tytuł filmu" v-model="title">
-          </div>
-            <div>
-              <textarea rows="15" cols="15" placeholder="Opis" v-model="description"></textarea>
-            </div>
-          <div class="datepicker" style="text-align:left">
-                    <label for="" style="text-align:left">Data produkcji</label>
-                    <datepicker v-model="movieDate"  name="uniquename"></datepicker>
-          </div>
-        </div>
-        
+              <b-form-group style="text-align:left" label="Opis filmu" label-for="descinput" description="Napisz krótki/długi opis filmu">
+                <b-form-textarea id="descinput" :rows="3" v-model="description" placeholder="Nazwa filmu"></b-form-textarea>
+              </b-form-group>  
+              
+               <b-form-group style="text-align:left" label="Data produkcji filmu" label-for="datainput" description="Wybierz date">
+                  <datepicker v-model="movieDate"  name="uniquenam1e" :bootstrap-styling=true></datepicker>
+              </b-form-group>  
 
-        <div class="border">
-          <div>
-               <multiselect id="directorSelect" v-model="choosenDirectors" :multiple="false" deselect-label="Can't remove this value" track-by="imie" :custom-label="customLabel" placeholder="Wybierz reżysera.." :options="directors" :searchable="true" :allow-empty="false">
-                  <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.imie }} {{option.nazwisko}}</strong></template>
-              </multiselect>
-          </div>
-          <div>
-          <a @click='toggleDirector = !toggleDirector'> Reżyser filmu nie istnieje w bazie? Dodaj go</a>
-            <div v-show='toggleDirector'>
-                <div>
-                  <input type="text" name="directorName" placeholder="Imie reżysera" v-model="directorName">
+                <hr class="my-4">
+
+
+              <b-form-group style="text-align:left" label="Reżyser flmu" label-for="directorinput" description="" v-show='!toggleDirector'>
+                 <multiselect id="directorSelect" v-model="choosenDirectors" :multiple="false" deselect-label="Can't remove this value" track-by="imie" :custom-label="customLabel" placeholder="Wybierz reżysera.." :options="directors" :searchable="true" :allow-empty="false">
+                  <template slot="singleLabel" slot-scope="{ option }">{{ option.imie }} {{option.nazwisko}}</template>
+                 </multiselect>
+              </b-form-group>
+              
+
+              <div>
+              <a @click='toggleDirector = !toggleDirector' v-show='!toggleDirector'> Reżyser filmu nie istnieje w bazie? <strong>Dodaj go</strong></a>
+              <div v-show='toggleDirector'>
+                  <b-jumbotron>
+                    <template slot="header">
+                      <span style="font-size:50px">Dodaj reżysera</span>
+                    </template>
+                  <div>
+                  <b-form-group style="text-align:left">
+                      <b-form-input id="titleinput" v-model="directorName" type="text" placeholder="Imie reżysera"></b-form-input>
+                  </b-form-group>
+                  
                 </div>
                  <div>
-                  <input type="text" name="directorSecond" placeholder="Nazwisko reżysera" v-model="directorSecond">
+                   <b-form-group style="text-align:left">
+                    <b-form-input id="titleinput" v-model="directorSecond" type="text" placeholder="Nazwisko reżysera"></b-form-input>
+                   </b-form-group>
+                  
                 </div>
-                <div class="datepicker" style="text-align:left">
-                    <label for="" style="text-align:left">Data urodzenia</label>
-                    <datepicker v-model="directorDate"  name="uniquename"></datepicker>
+                <div>
+                    <b-form-group style="text-align:left" label="Data urodzenia">
+                        <datepicker v-model="directorDate"  :bootstrap-styling=true name="uniquename"></datepicker>
+                    </b-form-group>     
                 </div>
 
                 <div>
-                  <button class="app_post_btn" @click="addDirector">Dodaj reżysera!</button>
+                  <b-button variant="primary" @click="addDirector">Dodaj reżysera!</b-button>
+                  <b-button variant="danger" @click='toggleDirector = !toggleDirector'>Wróć</b-button>
                 </div>
-            </div>
-          </div>
-        </div>
+              </b-jumbotron>
+              </div>
+              </div>
+                <hr class="my-4">
 
-        <div class="border">
-          <div > 
-            <multiselect id="genreSelect" v-model="choosenGenres" :multiple="true" deselect-label="Can't remove this value" track-by="nazwa" label="nazwa" placeholder="Wybierz gatunki..." :options="genres" :searchable="false" :allow-empty="false">
-              <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.nazwa }}</strong></template>
-            </multiselect>
-       </div>
-
-        <div id="GenreForm">
-            <a @click='toggleGenre = !toggleGenre'> Nie ma twojego gatunku? Kliknij tutaj</a>
-            <div v-show='toggleGenre'>
-                <div>
-                  <input type="text" name="genreName" placeholder="Nazwa gatunku" v-model="genreName">
-                </div>
-                 <div>
-                  <input type="text" name="genreDesc" placeholder="Opis gatunku" v-model="genreDesc">
-                </div>
-                <div>
-                  <button class="app_post_btn" @click="addGenre">Dodaj gatunek!</button>
-                </div>
-            </div>
-        </div>
-        </div>
-
-        <div class="border">
-          <div>
-             <multiselect id="conentSelect" v-model="choosenConent" :multiple="false" deselect-label="Can't remove this value" track-by="nazwa" label="nazwa" placeholder="Wybierz kategorie wiekową.." :options="content" :allow-empty="false">
+               <b-form-group style="text-align:left" label="Gatunki filmu" label-for="genrectorinput" description="" v-show='!toggleGenre'>
+                 <multiselect id="genreSelect" v-model="choosenGenres" :multiple="true" deselect-label="Can't remove this value" track-by="nazwa" label="nazwa" placeholder="Wybierz gatunki..." :options="genres" :searchable="false" :allow-empty="false">
                   <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.nazwa }}</strong></template>
-              </multiselect>
-          </div>
+                </multiselect>
+              </b-form-group>
 
-          <div>
-            <a @click='toggleConent = !toggleConent'> Brakuje odpowiedniej kategorii wiekowej? *CLICK*</a>
-            <div v-show='toggleConent'>
-                <div>
-                  <input type="text" name="contentName" placeholder="Kategoria" v-model="contentName">
+              <div id="GenreForm">
+                  <a @click='toggleGenre = !toggleGenre' v-show='!toggleGenre'> Nie ma twojego gatunku? <strong>Kliknij tutaj</strong></a>
+                      <div v-show='toggleGenre'>
+                        <b-jumbotron>
+                            <template slot="header">
+                              <span style="font-size:50px">Dodaj gatunek</span>
+                            </template>
+                        <div>
+                          <b-form-group style="text-align:left">
+                            <b-form-input id="titleinput" v-model="genreName" type="text" placeholder="Nazwa gatunku"></b-form-input>
+                          </b-form-group>
+                        </div>
+                         <div>
+                          <b-form-group style="text-align:left">
+                            <b-form-textarea id="titleinput" v-model="genreDesc" type="text" placeholder="Opis gatunku"></b-form-textarea>
+                          </b-form-group>
+                        </div>
+
+                        <div>
+                          <b-button variant="primary" @click="addGenre">Dodaj</b-button>
+                          <b-button variant="danger" @click='toggleGenre = !toggleGenre'>Wróć</b-button>
+                        </div>
+                        </b-jumbotron>
                 </div>
+              </div>
+              <hr class="my-4">
+
+              <b-form-group style="text-align:left" label="Nagody filmu" label-for="awardctorinput" description="" v-show='!toggleAwards'>
+                <multiselect id="conentSelect" v-model="choosenAwards" :multiple="false" deselect-label="Can't remove this value" track-by="nazwa" label="nazwa" placeholder="Wybierz nagrody filmu.." :options="awards" :allow-empty="false">
+                  <template slot="singleLabel" slot-scope="{ option }">{{ option.nazwa }}</template>
+                </multiselect>
+              </b-form-group>
                  <div>
-                  <input type="text" name="contentDesc" placeholder="Opis kategorii" v-model="contentDesc">
-                </div>
-                <div>
-                  <button class="app_post_btn" @click="addContent">Dodaj!</button>
-                </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="border">
-          <div>
-             <multiselect id="awardsSelect" v-model="choosenAwards" :multiple="true" deselect-label="Can't remove this value" track-by="nazwa" label="nazwa" placeholder="Wybierz nagrody flimu..." :options="awards" :searchable="false" :allow-empty="false">
-              <template slot="singleLabel" slot-scope="{ option }"><strong>{{ option.nazwa }}</strong></template>
-            </multiselect>
-          </div>
-
-          <div>
-            <a @click='toggleAwards = !toggleAwards'> Brakuje odpowiedniej nagrody? *CLICK*</a>
+            <a @click='toggleAwards = !toggleAwards' v-show='!toggleAwards'> Brakuje odpowiedniej nagrody? <strong>Dodaj!</strong></a>
             <div v-show='toggleAwards'>
-                <div>
-                  <input type="text" name="contentName" placeholder="Kategoria" v-model="awardName">
-                </div>
-                 <div>
-                  <input type="text" name="contentDesc" placeholder="Opis kategorii" v-model="awardDesc">
-                </div>
-                <div>
-                  <input type="text" name="contentDesc" placeholder="Zdjecie" v-model="awardPic">
-                </div>
-                <div>
-                  <input type="text" name="contentDesc" placeholder="Opis2 kategorii" v-model="awardDesc2">
-                </div>
-                <div>
-                  <button class="app_post_btn" @click="addAward">Dodaj!</button>
-                </div>
+               <b-jumbotron>
+                        <template slot="header">
+                              <span style="font-size:50px">Dodaj nagrodę</span>
+                        </template>
+
+                        <div>
+                          <b-form-group style="text-align:left">
+                            <b-form-input id="titleinput" v-model="awardName" type="text" placeholder="Nazwa nagrody"></b-form-input>
+                          </b-form-group>
+                        </div>
+
+                        <div>
+                          <b-form-group style="text-align:left">
+                            <b-form-input id="titleinput" v-model="awardDesc" type="text" placeholder="Opis nagrody"></b-form-input>
+                          </b-form-group>
+                        </div>
+
+                         <div>
+                          <b-form-group style="text-align:left">
+                            <b-form-input id="titleinput" v-model="awardPic" type="text" placeholder="Obrazek nagrody"></b-form-input>
+                          </b-form-group>
+                        </div>
+
+                         <div>
+                          <b-form-group style="text-align:left">
+                            <b-form-input id="titleinput" v-model="awardDesc2" type="text" placeholder="Opis 2 nagrody"></b-form-input>
+                          </b-form-group>
+                        </div>
+
+                        <div>
+                          <b-button variant="primary" @click="addAward">Dodaj</b-button>
+                          <b-button variant="danger" @click='toggleAwards = !toggleAwards'>Wróć</b-button>
+                        </div>
+                        </b-jumbotron>
             </div>
           </div>
-        </div>
-        
+                <hr class="my-4">
 
-        
+              <b-form-group style="text-align:left" label="Kategoria wiekowa filmu" label-for="contentinput" description="" v-show='!toggleConent'>
+                 <multiselect id="awardsSelect" v-model="choosenConent" :multiple="true" deselect-label="Can't remove this value" track-by="nazwa" label="nazwa" placeholder="Wybierz kategorie wiekową..." :options="content" :searchable="false" :allow-empty="false">
+                  <template slot="singleLabel" slot-scope="{ option }">{{ option.nazwa }}</template>
+                 </multiselect>
+              </b-form-group>
+              <div>
+              <a @click='toggleConent = !toggleConent' v-show='!toggleConent'> Brakuje odpowiedniej kategorii wiekowej? <strong>Dodaj nową</strong></a>
+              <div v-show='toggleConent'>
 
-        <div>
-          <button class="app_post_btn" @click="addMovie">Add</button>
-        </div>
-      </div>
+                        <b-jumbotron>
+                            <template slot="header">
+                              <span style="font-size:50px">Dodaj kategorie</span>
+                            </template>
+                        <div>
+                          <b-form-group style="text-align:left">
+                            <b-form-input id="titleinput" v-model="contentName" type="text" placeholder="Nazwa kategorii wiekowej"></b-form-input>
+                          </b-form-group>
+                        </div>
+
+                        <div>
+                          <b-form-group style="text-align:left">
+                            <b-form-input id="titleinput" v-model="contentDesc" type="text" placeholder="Opis kategorii"></b-form-input>
+                          </b-form-group>
+                        </div>
+
+                        <div>
+                          <b-button variant="primary" @click="addContent">Dodaj</b-button>
+                          <b-button variant="danger" @click='toggleConent = !toggleConent'>Wróć</b-button>
+                        </div>
+                        </b-jumbotron>
+             </div>
+             </div>
+                <hr class="my-4">
+
+            <div>
+              <b-button variant="primary " @click="addMovie">Edytuj</b-button>
+            </div>
+        </b-col>
+        <b-col></b-col>
+    </b-row>
+</b-container>
   </div>
 </template>
 
