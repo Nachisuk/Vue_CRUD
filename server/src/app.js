@@ -344,4 +344,87 @@ app.delete('/content/:id',(req,res) =>{
       res.send({succes:true})
   })
 })
+//Szukanie konkretnego filmu
+app.post('/searchMovie',(req,res) =>{
+  console.log("hello there")
+  var tabela = req.body.tabela;
+  console.log(tabela);
+  var search = req.body.search;
+  var regex = new RegExp(search,'i');
+  switch(tabela){
+    case "Nazwa":
+       Movie.find({"nazwa":regex},function(error,movies){
+        if(error) {console.error(error);}
+        res.send({
+          movies: movies
+        })
+      }).populate('reżyser').populate('gatunek')
+      .populate('nagrody').populate('kategoria_wiekowa')
+    break;
+    case "Opis":
+      Movie.find({"opis":regex},function(error,movies){
+        if(error) {console.error(error);}
+        res.send({
+          movies: movies
+        })
+      }).populate('reżyser').populate('gatunek')
+      .populate('nagrody').populate('kategoria_wiekowa')
+    break;
+    case "Reżyser":
+    searchTable = "reżyser"
+    Director.find({$or:[{"imie":regex}, {"nazwisko":regex}]},function(error,directors){
+      Movie.find({"reżyser":{$in: directors}},function(err,movies){
+        if(err){console.error(err)}
+        console.log(movies[0]);
+        res.send({
+          movies: movies
+        })
+      }).populate('reżyser').populate('gatunek')
+      .populate('nagrody').populate('kategoria_wiekowa')
+    })
+    break;
+    case "Gatunek":
+    Genre.find({"nazwa":regex},function(error,genre){
+      console.log(genre[0]._id)
+      Movie.find({"gatunek":{$in: [genre]}},function(err,movies){
+        if(err){console.error(err)}
+        console.log(movies[0]);
+        res.send({
+          movies: movies
+        })
+      }).populate('reżyser').populate('gatunek')
+      .populate('nagrody').populate('kategoria_wiekowa')
+    })
+
+    break;
+    case "Nagrody":
+    Awards.find({"nazwa":regex},function(error,award){
+      Movie.find({"nagrody":{$in:[award]}},function(err,movies){
+        if(err){console.error(err)}
+        console.log(movies[0]);
+        res.send({
+          movies: movies
+        })
+      }).populate('reżyser').populate('gatunek')
+      .populate('nagrody').populate('kategoria_wiekowa')
+    })
+    break;
+    case "Kategoria wiekowa":
+    ContentRating.find({"nazwa":regex},function(error,content){
+      Movie.find({"kategoria_wiekowa":{$in: content}},function(err,movies){
+        if(err){console.error(err)}
+        console.log(movies[0]);
+        res.send({
+          movies: movies
+        })
+      }).populate('reżyser').populate('gatunek')
+      .populate('nagrody').populate('kategoria_wiekowa')
+    })
+    break;
+    case "Data wydania":
+    searchTable = "data_wydania"
+    break;
+  }
+ 
+})
 app.listen(process.env.PORT || 8081)

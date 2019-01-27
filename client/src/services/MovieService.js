@@ -84,6 +84,9 @@ export default {
   },
   deleteContent(id){
     return Api().delete('content/'+id)
+  },
+  searchMovie(params){
+    return Api().post('searchMovie/',params)
   }
 
 
