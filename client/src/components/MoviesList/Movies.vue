@@ -2,7 +2,7 @@
     <div class= "container">
         <div class="row">
             <div class="col-6" align="left">
-                <h1>Movies</h1>
+                <h1>Filmy</h1>
             </div>
             <div class="col-6" align="right">
                 <router-link v-bind:to="{ name: 'NewMovie'}">
