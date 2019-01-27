@@ -21,6 +21,8 @@ import contentRating from '@/components/TablesList/ContentComponents/contentRati
 import EditContent from '@/components/TablesList/ContentComponents/EditContent'
 import NewContent from '@/components/TablesList/ContentComponents/NewContent'
 
+import Search from '@/components/Searching/Search'
+
 
 Vue.use(Router)
 
@@ -102,5 +104,10 @@ export default new Router({
       name: 'EditContent',
       component: EditContent
     },
+    {
+      path: '/search',
+      name: 'Search',
+      component: Search
+    }
   ]
 })

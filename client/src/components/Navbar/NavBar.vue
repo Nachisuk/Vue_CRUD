@@ -19,6 +19,10 @@
     <router-link  v-bind:to="{name: 'ContentRating'}"><b-nav-text>Kategorie wiekowe</b-nav-text></router-link>
     </b-navbar-nav>
 
+    <b-navbar-nav class="ml-auto">
+          <router-link  v-bind:to="{name: 'Search'}"><b-nav-text>Szukaj</b-nav-text></router-link>
+    </b-navbar-nav>
+
   </b-collapse>
 </b-navbar>
 </template>
