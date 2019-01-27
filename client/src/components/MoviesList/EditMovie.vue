@@ -13,6 +13,10 @@
               <b-form-group style="text-align:left" label="Opis filmu" label-for="descinput" description="Napisz krótki/długi opis filmu">
                 <b-form-textarea id="descinput" :rows="3" v-model="description" placeholder="Nazwa filmu"></b-form-textarea>
               </b-form-group>  
+
+              <b-form-group style="text-align:left" label="Plakat filmu" label-for="posterinput" description="">
+                <b-form-input id="posterinput" :rows="3" v-model="poster" type="text" placeholder="Link obrazku"></b-form-input>
+               </b-form-group>
               
                <b-form-group style="text-align:left" label="Data produkcji filmu" label-for="datainput" description="Wybierz date">
                   <datepicker v-model="data_wydania"  name="uniquename" bootstrap-styling="true"></datepicker>
@@ -76,6 +80,7 @@ export default {
     return {
       title: '',
       description: '',
+      poster: '',
       data_wydania: Date.now(),
       modeldirectors: [],
       modelgenres: [],
@@ -102,6 +107,7 @@ export default {
       })
       this.title = response.data.nazwa
       this.description = response.data.opis
+      this.poster = response.data.plakat
       this.data_wydania = response.data.data_wydania
       this.modeldirectors = response.data.reżyser
       this.modelgenres = response.data.gatunek
@@ -134,6 +140,7 @@ export default {
         id: this.$route.params.id,
         nazwa: this.title,
         opis: this.description,
+        plakat: this.poster,
         kategoria_wiekowa: this.modelcontent,
         reżyser: this.modeldirectors,
         gatunek: this.modelgenres,

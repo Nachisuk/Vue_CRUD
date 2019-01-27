@@ -33,9 +33,9 @@
                                 </a>
                             </span>
                             <br><br>
-                            <b-img v-if="movie.poster==null" thumbnail fluid-grow src="https://www.flixdetective.com/web/images/poster-placeholder.png" alt="Thumbnail" style="max-width: 270px;" />
-                            <b-img v-else-if="movie.poster===''" thumbnail fluid-grow src="https://www.flixdetective.com/web/images/poster-placeholder.png" alt="Thumbnail" style="max-width: 270px;" />
-                            <b-img v-else thumbnail fluid-grow :src="movie.poster" alt="Thumbnail" style="max-width: 270px;" />
+                            <b-img v-if="movie.plakat==null" thumbnail fluid-grow src="https://www.flixdetective.com/web/images/poster-placeholder.png" alt="Thumbnail" style="max-width: 270px;" />
+                            <b-img v-else-if="movie.plakat===''" thumbnail fluid-grow src="https://www.flixdetective.com/web/images/poster-placeholder.png" alt="Thumbnail" style="max-width: 270px;" />
+                            <b-img v-else thumbnail fluid-grow :src="movie.plakat" alt="Thumbnail" style="max-width: 270px;" />
                         </div>
 
                         
