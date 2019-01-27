@@ -1,11 +1,8 @@
 <template>
     <div>
-        <h1>Movies</h1>      
+        <h1>Movies</h1>   
+        <div style="float:right"><router-link v-bind:to="{ name: 'NewMovie'}"><b-button variant="primary">Dodaj nowy</b-button></router-link></div>   
         <div v-if="movies.length > 0" class="table-wrap">
-            <div>
-                <router-link v-bind:to="{name: 'NewMovie'}">Dodaj film</router-link>
-            </div>
-
             <table>
                 <tr>
                     <td>Nazwa</td>

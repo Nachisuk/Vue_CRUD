@@ -9,7 +9,7 @@
               </b-form-group>       
 
               <b-form-group style="text-align:left" label="Opis filmu" label-for="descinput" description="Napisz krótki/długi opis filmu">
-                <b-form-textarea id="descinput" :rows="3" v-model="description" placeholder="Nazwa filmu"></b-form-textarea>
+                <b-form-textarea id="descinput" :rows="3" v-model="description" placeholder="Opis filmu"></b-form-textarea>
               </b-form-group>  
               
                <b-form-group style="text-align:left" label="Data produkcji filmu" label-for="datainput" description="Wybierz date">
@@ -94,7 +94,7 @@
               <hr class="my-4">
 
               <b-form-group style="text-align:left" label="Nagody filmu" label-for="awardctorinput" description="" v-show='!toggleAwards'>
-                <multiselect id="conentSelect" v-model="choosenAwards" :multiple="false" deselect-label="Can't remove this value" track-by="nazwa" label="nazwa" placeholder="Wybierz nagrody filmu.." :options="awards" :allow-empty="false">
+                <multiselect id="conentSelect" v-model="choosenAwards" :multiple="true" deselect-label="Can't remove this value" track-by="nazwa" label="nazwa" placeholder="Wybierz nagrody filmu.." :options="awards" :allow-empty="false">
                   <template slot="singleLabel" slot-scope="{ option }">{{ option.nazwa }}</template>
                 </multiselect>
               </b-form-group>
@@ -140,7 +140,7 @@
                 <hr class="my-4">
 
               <b-form-group style="text-align:left" label="Kategoria wiekowa filmu" label-for="contentinput" description="" v-show='!toggleConent'>
-                 <multiselect id="awardsSelect" v-model="choosenConent" :multiple="true" deselect-label="Can't remove this value" track-by="nazwa" label="nazwa" placeholder="Wybierz kategorie wiekową..." :options="content" :searchable="false" :allow-empty="false">
+                 <multiselect id="awardsSelect" v-model="choosenConent" :multiple="false" deselect-label="Can't remove this value" track-by="nazwa" label="nazwa" placeholder="Wybierz kategorie wiekową..." :options="content" :searchable="false" :allow-empty="false">
                   <template slot="singleLabel" slot-scope="{ option }">{{ option.nazwa }}</template>
                  </multiselect>
               </b-form-group>
@@ -174,7 +174,7 @@
                 <hr class="my-4">
 
             <div>
-              <b-button variant="primary " @click="addMovie">Edytuj</b-button>
+              <b-button variant="primary" @click="addMovie">Dodaj</b-button>
             </div>
         </b-col>
         <b-col></b-col>
