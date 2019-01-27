@@ -19,7 +19,7 @@
                      <td><span v-if="movie.nazwa !== null">{{ movie.nazwa }}</span></td>
                      <td><span v-if="movie.opis !== null">{{ movie.opis }}</span></td>
                      <td><span v-if="movie.data_wydania !== null">{{ movie.data_wydania }}</span></td>
-                     <td><span v-if="movie.reżyser">{{movie.reżyser.imie}} </span></td>
+                     <td><span v-if="movie.reżyser">{{movie.reżyser.imie+" "+movie.reżyser.nazwisko}} </span></td>
                      <td><span v-for="genre in movie.gatunek" :key="genre.id">{{genre.nazwa+", "}} </span></td>
                      <td> <span v-for="award in movie.nagrody" :key="award.id">{{award.nazwa+", "}}</span></td>
                      <td><span v-if="movie.kategoria_wiekowa">{{movie.kategoria_wiekowa.nazwa}}</span></td>
