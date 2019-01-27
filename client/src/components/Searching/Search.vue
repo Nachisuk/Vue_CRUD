@@ -28,41 +28,167 @@
             </div>
  
 <div v-show='searchMovie'>
-<div v-if="movies.length > 0" class="table-wrap">
-            <table>
+<div v-if="movies.length > 0" class="row ">
+            <div v-for="movie in movies" :key="movie.id" class="col-md-6 col-lg-4">
+                <transition name="fade">
+                    <div class = "moviecard">
+                        
+                        <div v-if=movie.nazwa class="movie-title">
+                            {{movie.nazwa}}
+                            <span v-if=movie.data_wydania class="movie-year">{{movie.data_wydania | moment("YYYY") }}</span>
+                        </div>
+                        <div class="movie-details">
+                            <span v-if=movie.kategoria_wiekowa class="movie-rating">{{movie.kategoria_wiekowa.nazwa}}</span>
+                            <span class="movie-genre" >
+                                <a v-for="genre in movie.gatunek" :key="genre.id" >
+                                    <a style="text-decoration: underline;">{{genre.nazwa}}</a>
+                                    <a>{{" "}}</a>
+                                </a>
+                            </span>
+                            <br><br>
+                            <b-img v-if="movie.poster==null" thumbnail fluid-grow src="https://www.flixdetective.com/web/images/poster-placeholder.png" alt="Thumbnail" style="max-width: 270px;" />
+                            <b-img v-else-if="movie.poster===''" thumbnail fluid-grow src="https://www.flixdetective.com/web/images/poster-placeholder.png" alt="Thumbnail" style="max-width: 270px;" />
+                            <b-img v-else thumbnail fluid-grow :src="movie.poster" alt="Thumbnail" style="max-width: 270px;" />
+                        </div>
+
+                        
+
+                        <div v-if=movie.reżyser class="movie-castcrew">
+                            <span class="title">Reżyser</span>
+                            <span class="name">{{movie.reżyser.imie + ' ' + movie.reżyser.nazwisko}}</span>
+                        </div>
+                        <div v-if="movie.nagrody.length>0" class="movie-castcrew">
+                            <span class="title">Nagrody</span>
+                            <span class="name">
+                                <a v-for="award in movie.nagrody" :key="award.id" >{{award.nazwa+" "}}</a>
+                            </span>
+                        </div>
+                        <div v-if=movie.opis class="movie-synopsis">
+                            {{movie.opis}}
+                        </div>
+                        <div >
+                            <router-link v-bind:to="{ name: 'UpdateMovie', params: { id: movie._id } }">
+                                Edytuj
+                            </router-link>
+                                 |
+                            <a href="#" @click="deleteMovie(movie._id)">
+                                Usuń
+                            </a>
+                        </div>
+                    </div>
+                </transition>
+            </div>
+        </div>
+
+        <div v-else class="row">
+            <div style="margin-bottom: 20px; margin-top: 20px;">
+                 Brak wyników wyszukiwania filmów
+            </div>
+        </div>
+  </div>
+
+  <div v-show='searchDirectors'>
+    <div v-if="directors.length >0" class="row">
+    <div  v-for="director in directors" :key="director._id" class="col-md-6 col-lg-4" style="margin-bottom: 20px; margin-top: 20px;">
+      <b-card >
+          <h4 slot="header">{{director.imie +' '+director.nazwisko}}</h4>
+          <b-card-body>
+            <p class="card-text">
+                <b>Datan urodzenia: </b>{{ director.data_urodzenia | moment("DD.MM.YYYY r.")}}
+            </p>
+          </b-card-body>
+          <div slot="footer"> 
+            <router-link v-bind:to="{ name: 'EditDirector', params: { id: director._id } }">Edytuj</router-link> | <a href="#" @click="deleteDirector(director._id)">Usuń</a>
+          </div>
+        </b-card>  
+    </div>
+  </div> 
+  
+  <div v-else class="row">
+    <div style="margin-bottom: 20px; margin-top: 20px;">
+         Brak wyników wyszukiwania reżyserów
+    </div>
+  </div>
+  </div>
+
+  <div v-show='searchAwards'>
+  <div v-if="awards.length > 0" class="row">
+    <div  v-for="award in awards" :key="award._id" class="col-md-6 col-lg-4" style="margin-bottom: 20px; margin-top: 20px;">
+      <b-card >
+          <h4 slot="header">{{ award.nazwa }}</h4>
+          <b-card-body>
+            <p class="card-text">
+              <b-img v-if="award.obrazek==null" thumbnail fluid-grow src="https://www.tatahousing.in/images/award-placeholder.png" alt="Thumbnail" style="max-width: 270px;" />
+              <b-img v-else-if="award.obrazek===''" thumbnail fluid-grow src="https://www.tatahousing.in/images/award-placeholder.png" alt="Thumbnail" style="max-width: 270px; background-color:#E8E8E8;" />
+              <b-img v-else thumbnail fluid-grow :src="award.obrazek" alt="Thumbnail" style="max-width: 270px;" />
+              <br><br>
+              {{ award.opis}}
+            </p>
+          </b-card-body>
+          <div slot="footer"> 
+            <router-link v-bind:to="{ name: 'EditAward', params: { id: award._id } }">Edytuj</router-link> | <a href="#" @click="deleteAward(award._id)">Usuń</a>
+          </div>
+        </b-card>  
+    </div>
+  </div> 
+  
+  <div v-else class="row">
+    <div style="margin-bottom: 20px; margin-top: 20px;">
+         Brak wyników wyszukiwania nagrody
+    </div>
+  </div>
+</div>
+
+  <div v-show='searchGenres'>
+ <div v-if="genres.length >0" class="row">
+    <div v-for="genre in genres" :key="genre._id" class="col-md-6 col-lg-4" style="margin-bottom: 20px; margin-top: 20px;">
+      <b-card >
+          <h4 slot="header">{{ genre.nazwa }}</h4>
+          <b-card-body>
+            <p class="card-text">
+                {{ genre.opis}}
+            </p>
+          </b-card-body>
+          <div slot="footer"> 
+            <router-link v-bind:to="{ name: 'EditGenre', params: { id: genre._id } }">Edytuj</router-link> | <a href="#" @click="deleteGenre(genre._id)">Usuń</a>
+          </div>
+        </b-card>
+        
+    </div>
+  </div> 
+  
+  <div v-else class="row">
+    <div style="margin-bottom: 20px; margin-top: 20px;">
+        Brak wyników wyszukiwania gatunku
+    </div>
+  </div>
+</div>
+
+  <div v-show='searchContent'>
+<div v-if="content.length > 0" class="table-wrap">
+          <table>
                 <tr>
                     <td>Nazwa</td>
                     <td>Opis</td>
-                    <td>Data Wydania</td>
-                    <td>Autor</td>
-                    <td>Gatunek</td>
-                    <td>Nagrody</td>
-                    <td>Kategoria</td>
-                    <td>Akcja</td>
                 </tr>
 
-                <tr v-for="movie in movies" :key="movie.id">
-                     <td><span v-if="movie.nazwa !== null">{{ movie.nazwa }}</span></td>
-                     <td><span v-if="movie.opis !== null">{{ movie.opis }}</span></td>
-                     <td><span v-if="movie.data_wydania !== null">{{ movie.data_wydania }}</span></td>
-                     <td><span v-if="movie.reżyser">{{movie.reżyser.imie+" "+movie.reżyser.nazwisko}} </span></td>
-                     <td><span v-for="genre in movie.gatunek" :key="genre.id">{{genre.nazwa+", "}} </span></td>
-                     <td> <span v-for="award in movie.nagrody" :key="award.id">{{award.nazwa+", "}}</span></td>
-                     <td><span v-if="movie.kategoria_wiekowa">{{movie.kategoria_wiekowa.nazwa}}</span></td>
+                <tr v-for="content1 in content" :key="content._id">
+                     <td>{{content1.nazwa }}</td>
+                     <td>{{content1.opis}}</td>                  
                      <td align="center">
-                        <router-link v-bind:to="{ name: 'UpdateMovie', params: { id: movie._id } }">Edit</router-link> |
-                        <a href="#" @click="deleteMovie(movie._id)">Delete</a>
+                        <router-link v-bind:to="{ name: 'EditContent', params: { id: content1._id } }">Edit</router-link>|
+                        <a href="#" @click="deleteContent(content1._id)">Delete</a>
                     </td>
                 </tr>
             </table>
+      </div>
+      <div v-else>
+            Brak wyników wyszukiwania kategorii wiekowej <br /><br />    
         </div>
-        <div v-else>
-           Brak wyników wyszukiwania <br /><br />
-        </div>
-</div>
-</div>
+  </div>
 
 </div>
+
 
 </template>
 
@@ -89,7 +215,16 @@ import MovieService from '@/services/MovieService'
           'Nagrody': [{size:'Nagroda',pole:'Nazwa'}],
         },
         movies: [],
+        directors: [],
+        awards: [],
+        genres: [],
+        content: [],
+
         searchMovie: false,
+        searchDirectors: false,
+        searchAwards: false,
+        searchGenres: false,
+        searchContent: false
 
       }
     },
@@ -105,19 +240,46 @@ import MovieService from '@/services/MovieService'
              })
              this.movies = response.data.movies
              this.searchMovie = true;
+             this.searchAwards = this.searchContent = this.searchDirectors = this.searchGenres = false;
              console.log(this.movies);
             break;
             case "Reżyserzy":
             console.log("2 "+this.secondOption);
+             const response1 = await MovieService.searchDirector({
+               tabela: this.secondOption,
+               search: this.searchText
+             })
+             this.directors = response1.data.directors
+             this.searchDirectors = true;
+             this.searchAwards = this.searchContent = this.searchMovie = this.searchGenres = false;
+             console.log(this.directors)
             break;
             case "Gatunki":
-            console.log("3 "+this.secondOption);
+            const response3 = await MovieService.searchGenre({
+               tabela: this.secondOption,
+               search: this.searchText
+             })
+             this.genres = response3.data.genres
+             this.searchGenres = true;
+             this.searchAwards = this.searchContent = this.searchDirectors = this.searchMovie = false;
             break;
             case "Kategorie wiekowe":
-            console.log("4 "+this.secondOption);
+            const response4 = await MovieService.searchContent({
+               tabela: this.secondOption,
+               search: this.searchText
+             })
+             this.content = response4.data.content
+             this.searchContent = true;
+             this.searchAwards = this.searchMovie = this.searchDirectors = this.searchGenres = false;
             break;
             case "Nagrody":
-            console.log("5 "+this.secondOption);
+            const response2 = await MovieService.searchAwards({
+               tabela: this.secondOption,
+               search: this.searchText
+             })
+             this.awards = response2.data.awards
+             this.searchAwards = true;
+             this.searchMovie = this.searchContent = this.searchDirectors = this.searchGenres = false;
             break;
             default:
             console.log('omega')

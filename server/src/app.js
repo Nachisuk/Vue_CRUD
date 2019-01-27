@@ -346,9 +346,7 @@ app.delete('/content/:id',(req,res) =>{
 })
 //Szukanie konkretnego filmu
 app.post('/searchMovie',(req,res) =>{
-  console.log("hello there")
   var tabela = req.body.tabela;
-  console.log(tabela);
   var search = req.body.search;
   var regex = new RegExp(search,'i');
   switch(tabela){
@@ -425,6 +423,88 @@ app.post('/searchMovie',(req,res) =>{
     searchTable = "data_wydania"
     break;
   }
- 
+})
+
+//Szukanie konkretnego rezysera
+app.post('/searchDirector',(req,res) =>{
+  var tabela = req.body.tabela;
+  var search = req.body.search;
+  var regex = new RegExp(search,'i');
+  switch(tabela){
+    case "Imie":
+    Director.find({"imie":regex},function(error,director){
+      if(error) {console.error(error)}
+      res.send({
+        directors: director
+      })
+    })
+    break;
+    case "Nazwisko":
+    Director.find({"nazwisko":regex},function(error,director){
+      if(error) {console.error(error)}
+      res.send({
+        directors: director
+      })
+    })
+    break;
+  }
+})
+
+//Szukanie konkretnego gatunku
+app.post('/searchGenre',(req,res) =>{
+  var tabela = req.body.tabela;
+  var search = req.body.search;
+  var regex = new RegExp(search,'i');
+  switch(tabela){
+    case "Nazwa":
+    Genre.find({"nazwa":regex},function(error,genre){
+      if(error) {console.error(error)}
+      res.send({
+        genres: genre
+      })
+    })
+    break;
+    case "Opis":
+    Genre.find({"opis":regex},function(error,genre){
+      if(error) {console.error(error)}
+      res.send({
+        genres: genre
+      })
+    })
+    break;
+  }
+})
+
+//Szukanie konkretnej nagrody
+app.post('/searchAward',(req,res) =>{
+  var tabela = req.body.tabela;
+  var search = req.body.search;
+  var regex = new RegExp(search,'i');
+  switch(tabela){
+    case "Nazwa":
+    Awards.find({"nazwa":regex},function(error,award){
+      if(error) {console.error(error)}
+      res.send({
+        awards: award
+      })
+    })
+    break;
+  }
+})
+//Szukanie konktetnej kategorii wiekowej
+app.post('/searchContent',(req,res) =>{
+  var tabela = req.body.tabela;
+  var search = req.body.search;
+  var regex = new RegExp(search,'i');
+  switch(tabela){
+    case "Nazwa":
+    ContentRating.find({"nazwa":regex},function(error,content){
+      if(error) {console.error(error)}
+      res.send({
+        content: content
+      })
+    })
+    break;
+  }
 })
 app.listen(process.env.PORT || 8081)

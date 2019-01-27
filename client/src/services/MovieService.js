@@ -87,7 +87,19 @@ export default {
   },
   searchMovie(params){
     return Api().post('searchMovie/',params)
-  }
+  },
+  searchDirector(params){
+    return Api().post('searchDirector/',params)
+  },
+  searchAward(params){
+    return Api().post('searchAward/',params)
+  },
+  searchGenre(params){
+    return Api().post('searchGenre/',params)
+  },
+  searchContent(params){
+    return Api().post('searchContent/',params)
+  },
 
 
 }
