@@ -91,7 +91,7 @@ export default {
   searchDirector(params){
     return Api().post('searchDirector/',params)
   },
-  searchAward(params){
+  searchAwards(params){
     return Api().post('searchAward/',params)
   },
   searchGenre(params){

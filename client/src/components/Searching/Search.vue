@@ -172,6 +172,11 @@
 		      </b-card>
 	      </div>
       </div>
+      <div v-else class="row">
+				<div style="margin-bottom: 20px; margin-top: 20px;">
+          Brak wyników wyszukiwania kategorii wiekowych.
+        </div>
+			</div>
 		</div>
 		
 	</div>
