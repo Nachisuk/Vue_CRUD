@@ -98,7 +98,7 @@
               <hr class="my-4">
 
               <b-form-group style="text-align:left" label="Nagody filmu" label-for="awardctorinput" description="" v-show='!toggleAwards'>
-                <multiselect id="conentSelect" v-model="choosenAwards" :multiple="true" deselect-label="Can't remove this value" track-by="nazwa" label="nazwa" placeholder="Wybierz nagrody filmu.." :options="awards" :allow-empty="false">
+                <multiselect id="conentSelect" v-model="choosenAwards" :multiple="true" deselect-label="Can't remove this value" track-by="nazwa" label="nazwa" placeholder="Wybierz nagrody filmu.." :options="awards" :allow-empty="true">
                   <template slot="singleLabel" slot-scope="{ option }">{{ option.nazwa }}</template>
                 </multiselect>
               </b-form-group>
@@ -244,9 +244,10 @@ export default {
       })
 
       var awardsIdArray = []
-      this.choosenAwards.forEach(function(item){
-        awardsIdArray.push(item._id);
-      })
+      if(this.choosenAwards)
+        this.choosenAwards.forEach(function(item){
+          awardsIdArray.push(item._id);
+        })
       var directorID = this.choosenDirectors._id
       var contentID = this.choosenConent._id
       console.log(directorID)

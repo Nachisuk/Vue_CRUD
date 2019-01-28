@@ -42,7 +42,7 @@
                 <hr class="my-4">
 
               <b-form-group style="text-align:left" label="Nagody filmu" label-for="awardctorinput" description="Wybierz nagrody">
-                <multiselect id="conentSelect" v-model="modelawards" :multiple="false" deselect-label="Can't remove this value" track-by="nazwa" label="nazwa" placeholder="Wybierz nagrody filmu.." :options="awards" :allow-empty="false">
+                <multiselect id="conentSelect" v-model="modelawards" :multiple="true" deselect-label="Usuń" track-by="nazwa" label="nazwa" placeholder="Wybierz nagrody filmu.." :options="awards" :allow-empty="true">
                   <template slot="singleLabel" slot-scope="{ option }">{{ option.nazwa }}</template>
                 </multiselect>
               </b-form-group>
